@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles/styles.css" />
+  </head>
+  <body>
+    <nav id="navbar">
+      <header>GO Documentation</header>
+      <ul>
+        <li><a class="nav-link" href="#Introduction">Introduction</a></li>
+        <li><a class="nav-link" href="#Tutorial:_Getting_started">Tutorial: Getting started</a></li>
+        <li><a class="nav-link" href="#Tutorial:_Create_a_Go_module">Tutorial: Create a Go module</a></li>
+        <li><a class="nav-link" href="#Tutorial:_Getting_started_with_multi-module_workspaces">Tutorial: Getting started with multi-module workspaces</a></li>
+        <li><a class="nav-link" href="#Tutorial:_Developing_a_RESTful_API_with_Go_and_Gin">Tutorial: Developing a RESTful API with Go and Gin</a></li>
+        <li><a class="nav-link" href="#Tutorial:_Getting_started_with_generics">Tutorial: Getting started with generics</a></li>
+        <li><a class="nav-link" href="#Tutorial:_Getting_started_with_fuzzing">Tutorial: Getting started with fuzzing</a></li>
+        <li><a class="nav-link" href="#Writing_Web_Applications">Writing Web Applications</a></li>
+        <li><a class="nav-link" href="#How_to_write_Go_code">How to write Go code</a></li>
+        <li><a class="nav-link" href="#A_Tour_of_Go">A Tour of Go</a></li>
+      </ul>
+    </nav>
+    <main id="main-doc">
+      <section class="main-section" id="Introduction">
+        <header>Introduction</header>
+        <article>
+          <p>
+            The Go programming language is an open source project to make programmers more productive.
+          </p>
+          <p>
+            Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It's a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.
+          </p>
+        </article>
+      </section>
+      <section class="main-section" id="Tutorial:_Getting_started">
+        <header>Tutorial: Getting started</header>
+        <article>
+          <p><strong>Table of Contents</strong></p>
+          <ul>
+            <li>Prerequisites</li>
+            <li>Install Go</li>
+            <li>Write some code</li>
+            <li>Call code in an external package</li>
+            <li>Write more code</li>
+        </ul>
+        <p>In this tutorial, you'll get a brief introduction to Go programming. Along the way, you will:</p>
+          <ul>
+            <li>Install Go (if you haven't already).</li>
+            <li>Write some simple "Hello, world" code.</li>
+            <li>Use the go command to run your code.</li>
+            <li>Use the Go package discovery tool to find packages you can use in your own code.</li>
+            <li>Call functions of an external module.</li>
+          </ul>
+          <p><strong>Note: </strong>For other tutorials, see <a href="https://go.dev/doc/tutorial/" target="_blank">Tutorials</a>.</p>
+
+          <h1>Prerequisites</h1>
+          <ul>
+            <li><strong>Some programming experience.</strong> The code here is pretty simple, but it helps to know something about functions.</li>
+            <li><strong>A tool to edit your code.</strong> Any text editor you have will work fine. Most text editors have good support for Go. The most popular are VSCode (free), GoLand (paid), and Vim (free).</li>
+            <li><strong>A command terminal.</strong> Go works well using any terminal on Linux and Mac, and on PowerShell or cmd in Windows.</li>
+          </ul>
+          <h1>Install Go</h1>
+          <p><strong>Download and install</strong></p>
+          <p>Download and install Go quickly with the steps described here.</p>
+          <ol>
+            <li><strong>Go download.</strong></li>
+            <p>Click the button below to download the Go installer.</p>
+            <button>
+                <a href="https://go.dev/dl/go1.18.3.windows-amd64.msi">Download Go</a>
+            </button>
+            <li><strong>Go install.</strong></li>
+            <p>Select the tab for your computer's operating system below, then follow its installation instructions.</p>
+            <ol>
+                <li>Open the MSI file you downloaded and follow the prompts to install Go.</li>
+                <p>By default, the installer will install Go to Program Files or Program Files (x86). You can change the location as needed. After installing, you will need to close and reopen any open command prompts so that changes to the environment made by the installer are reflected at the command prompt.</p>
+                <li>Verify that you've installed Go.</li>
+                <ol>
+                    <li>In Windows, click the Start menu.</li>
+                    <li>In the menu's search box, type cmd, then press the Enter key.</li>
+                    <li>In the Command Prompt window that appears, type the following command:
+                    <code>$ go version</code></li>
+                    <li>Confirm that the command prints the installed version of Go.</li>
+                </ol>
+            </ol>
+            <li><strong>Go code.</strong></li>
+            <p>You're set up! Visit the Getting Started tutorial to write some simple Go code. It takes about 10 minutes to complete.</p>
+          </ol>
+          <h1>Write some code</h1>
+          <p>Get started with Hello, World.</p>
+          <ol>
+            <li>Open a command prompt and cd to your home directory.</li>
+            <p>On Linux or Mac:</p>
+            <code>cd</code>
+            <p>On Windows:</p>
+            <code>cd %HOMEPATH%</code>
+            <li>Create a hello directory for your first Go source code.</li>
+            <p>For example, use the following commands:</p>
+            <code>mkdir hello
+                cd hello</code>
+            <li>Enable dependency tracking for your code.</li>
+            <p>When your code imports packages contained in other modules, you manage those dependencies through your code's own module. That module is defined by a go.mod file that tracks the modules that provide those packages. That go.mod file stays with your code, including in your source code repository.</p>
+            <p>To enable dependency tracking for your code by creating a go.mod file, run the go mod init command, giving it the name of the module your code will be in. The name is the module's module path.</p>
+            <p>In actual development, the module path will typically be the repository location where your source code will be kept. For example, the module path might be github.com/mymodule. If you plan to publish your module for others to use, the module path must be a location from which Go tools can download your module. For more about naming a module with a module path, see Managing dependencies.</p>
+            <p>For the purposes of this tutorial, just use example/hello.</p>
+            <code>$ go mod init example/hello
+                go: creating new go.mod: module example/hello
+                </code>
+            <li>In your text editor, create a file hello.go in which to write your code.</li>
+            <li>Paste the following code into your hello.go file and save the file.</li>
+            <code>package main
+
+                import "fmt"
+                
+                func main() {
+                    fmt.Println("Hello, World!")
+                }</code>
+            <p>This is your Go code. In this code, you:</p>
+            <ul>
+                <li>Declare a main package (a package is a way to group functions, and it's made up of all the files in the same directory).</li>
+                <li>Import the popular fmt package, which contains functions for formatting text, including printing to the console. This package is one of the standard library packages you got when you installed Go.</li>
+                <li>Implement a main function to print a message to the console. A main function executes by default when you run the main package.</li>
+            </ul>
+            <li>Run your code to see the greeting.</li>
+            <code>$ go run .
+                Hello, World!</code>
+            <p>The go run command is one of many go commands you'll use to get things done with Go. Use the following command to get a list of the others:</p>>
+            <code>$ go help</code>
+          </ll>
+          <h1>Call code in an external package</h1>
+          <ol>
+            <p>When you need your code to do something that might have been implemented by someone else, you can look for a package that has functions you can use in your code.</p>
+            <li>Make your printed message a little more interesting with a function from an external module.
+                <ol>
+                    <li>Visit pkg.go.dev and search for a "quote" package.</li>
+                    <li>Locate and click the rsc.io/quote package in search results (if you see rsc.io/quote/v3, ignore it for now).</li>
+                    <li>In the Documentation section, under Index, note the list of functions you can call from your code. You'll use the Go function.</li>
+                    <li>At the top of this page, note that package quote is included in the rsc.io/quote module.</li>
+                </ol>
+                <p>You can use the pkg.go.dev site to find published modules whose packages have functions you can use in your own code. Packages are published in modules -- like rsc.io/quote -- where others can use them. Modules are improved with new versions over time, and you can upgrade your code to use the improved versions.</p>
+            </li>
+            <li>In your Go code, import the rsc.io/quote package and add a call to its Go function.
+                <p>After adding the highlighted lines, your code should include the following:</p>
+                <code>package main
+
+                    import "fmt"
+                    
+                    import "rsc.io/quote"
+                    
+                    func main() {
+                        fmt.Println(quote.Go())
+                    }</code>
+            </li>
+            <li>Add new module requirements and sums.
+                <p>Go will add the quote module as a requirement, as well as a go.sum file for use in authenticating the module. For more, see Authenticating modules in the Go Modules Reference.</p>
+                <code>$ go mod tidy
+                    go: finding module for package rsc.io/quote
+                    go: found rsc.io/quote in rsc.io/quote v1.5.2</code>
+            </li>
+            <li>Run your code to see the message generated by the function you're calling.
+                <code>$ go run .
+                    Don't communicate by sharing memory, share memory by communicating.</code>
+                <p>Notice that your code calls the Go function, printing a clever message about communication.</p>
+                <p>When you ran go mod tidy, it located and downloaded the rsc.io/quote module that contains the package you imported. By default, it downloaded the latest version -- v1.5.2.</p>
+            </li>
+          </ol>
+          <h1>Write more code</h1>
+          <p>With this quick introduction, you got Go installed and learned some of the basics. To write some more code with another tutorial, take a look at Create a Go module.</p>
+
+        </article>
+      </section>
+      <section class="main-section" id="Tutorial:_Create_a_Go_module">
+        <header>Tutorial: Create a Go module</header>
+        <article>
+          <p>This is the first part of a tutorial that introduces a few fundamental features of the Go language. If you're just getting started with Go, be sure to take a look at Tutorial: Get started with Go, which introduces the go command, Go modules, and very simple Go code.</p>
+          <p>In this tutorial you'll create two modules. The first is a library which is intended to be imported by other libraries or applications. The second is a caller application which will use the first.</p>
+          <p>This tutorial's sequence includes seven brief topics that each illustrate a different part of the language.</p>
+          <ol>
+            <li>Create a module -- Write a small module with functions you can call from another module.</li>
+            <li>Call your code from another module -- Import and use your new module.</li>
+            <li>Return and handle an error -- Add simple error handling.</li>
+            <li>Return a random greeting -- Handle data in slices (Go's dynamically-sized arrays).</li>
+            <li>Return greetings for multiple people -- Store key/value pairs in a map.</li>
+            <li>Add a test -- Use Go's built-in unit testing features to test your code.</li>
+            <li>Compile and install the application -- Compile and install your code locally.</li>
+          </ol>
+          <h1>Start a module that others can use</h1>
+          <p>Start by creating a Go module. In a module, you collect one or more related packages for a discrete and useful set of functions. For example, you might create a module with packages that have functions for doing financial analysis so that others writing financial applications can use your work. For more about developing modules, see Developing and publishing modules.</p>
+          <p>Go code is grouped into packages, and packages are grouped into modules. Your module specifies dependencies needed to run your code, including the Go version and the set of other modules it requires.</p>
+          <p>As you add or improve functionality in your module, you publish new versions of the module. Developers writing code that calls functions in your module can import the module's updated packages and test with the new version before putting it into production use.</p>
+          <ol>
+            <li>Open a command prompt and cd to your home directory.
+                <p>On Linux or Mac:</p>
+                <code>cd</code>
+                <p>On Windows:</p>
+                <code>cd %HOMEPATH%</code>
+            </li>
+            <li>Create a greetings directory for your Go module source code.
+                <p>For example, from your home directory use the following commands:</p>
+                <code>mkdir greetings
+                    cd greetings</code>
+            </li>
+            <li>Start your module using the go mod init command.
+                <p>Run the go mod init command, giving it your module path -- here, use example.com/greetings. If you publish a module, this must be a path from which your module can be downloaded by Go tools. That would be your code's repository.</p>
+                <p>For more on naming your module with a module path, see Managing dependencies.</p>
+                <code>$ go mod init example.com/greetings
+                    go: creating new go.mod: module example.com/greetings</code>
+                <p>The go mod init command creates a go.mod file to track your code's dependencies. So far, the file includes only the name of your module and the Go version your code supports. But as you add dependencies, the go.mod file will list the versions your code depends on. This keeps builds reproducible and gives you direct control over which module versions to use.</p>
+            </li>
+            <li>In your text editor, create a file in which to write your code and call it greetings.go.</li>
+            <li>Paste the following code into your greetings.go file and save the file.
+                <code>package greetings
+
+                    import "fmt"
+                    
+                    // Hello returns a greeting for the named person.
+                    func Hello(name string) string {
+                        // Return a greeting that embeds the name in a message.
+                        message := fmt.Sprintf("Hi, %v. Welcome!", name)
+                        return message
+                    }</code>
+                <p>This is the first code for your module. It returns a greeting to any caller that asks for one. You'll write code that calls this function in the next step.</p>
+                <p>In this code, you:</p>
+                <ul>
+                    <li>Declare a greetings package to collect related functions.</li>
+                    <li>Implement a Hello function to return the greeting.
+                        <p>This function takes a name parameter whose type is string. The function also returns a string. In Go, a function whose name starts with a capital letter can be called by a function not in the same package. This is known in Go as an exported name. For more about exported names, see Exported names in the Go tour.</p>
+                    </li>
+                    <li>Declare a message variable to hold your greeting.</li>
+                    <li>Use the fmt package's Sprintf function to create a greeting message. The first argument is a format string, and Sprintf substitutes the name parameter's value for the %v format verb. Inserting the value of the name parameter completes the greeting text.</li>
+                    <li>Return the formatted greeting text to the caller.</li>
+                </ul>
+            </li>
+          </ol>
+        <p>In the next step, you'll call this function from another module.</p>
+        </article>
+      </section>
+      <section class="main-section" id="Tutorial:_Getting_started_with_multi-module_workspaces">
+        <header>Tutorial: Getting started with multi-module workspaces</header>
+        <article>
+            <p>This tutorial introduces the basics of multi-module workspaces in Go. With multi-module workspaces, you can tell the Go command that you’re writing code in multiple modules at the same time and easily build and run code in those modules.</p>
+            <p>In this tutorial, you’ll create two modules in a shared multi-module workspace, make changes across those modules, and see the results of those changes in a build.</p>
+            <h1>Create a module for your code</h1>
+            <p>To begin, create a module for the code you’ll write.</p>
+            <ol>
+              <li>Open a command prompt and change to your home directory.
+                <p>On Linux or Mac:</p>
+                <code>cd</code>
+                <p>On Windows:</p>
+                <code>cd %HOMEPATH%</code>
+                <p>The rest of the tutorial will show a $ as the prompt. The commands you use will work on Windows too.</p>
+              </li>
+              <li>From the command prompt, create a directory for your code called workspace.
+                <code>$ mkdir workspace
+                  $ cd workspace</code>
+              </li>
+              <li>Initialize the module
+                <p>Our example will create a new module hello that will depend on the golang.org/x/example module.</p>
+                <p>Create the hello module:</p>
+                <code>$ mkdir hello
+                  $ cd hello
+                  $ go mod init example.com/hello
+                  go: creating new go.mod: module example.com/hello</code>
+                  <p>Add a dependency on the golang.org/x/example module by using go get.</p>
+                  <code>$ go get golang.org/x/example</code>
+                  <p>Create hello.go in the hello directory with the following contents:</p>
+                  <code>package main
+
+                    import (
+                        "fmt"
+                    
+                        "golang.org/x/example/stringutil"
+                    )
+                    
+                    func main() {
+                        fmt.Println(stringutil.Reverse("Hello"))
+                    }</code>
+                    <p>Now, run the hello program:</p>
+                    <code>$ go run example.com/hello
+                      olleH</code>
+              </li>
+            </ol>
+            <h1>Create the workspace</h1>
+            <p>In this step, we’ll create a go.work file to specify a workspace with the module.</p>
+            <p><strong>Initialize the workspace</strong></p>
+            <p>In the workspace directory, run:</p>
+            <code>$ go work init ./hello</code>
+            <p>The go work init command tells go to create a go.work file for a workspace containing the modules in the ./hello directory.</p>
+            <p>The go command produces a go.work file that looks like this:</p>
+            <code>go 1.18
+
+              use ./hello</code>
+            <P>The go.work file has similar syntax to go.mod. The go directive tells Go which version of Go the file should be interpreted with. It’s similar to the go directive in the go.mod file. The use directive tells Go that the module in the hello directory should be main modules when doing a build. So in any subdirectory of workspace the module will be active.</P>
+            <P><strong>Run the program in the workspace directory</strong></P>
+            <P>In the workspace directory, run:</P>
+            <code>$ go run example.com/hello
+              olleH</code>
+            <p>The Go command includes all the modules in the workspace as main modules. This allows us to refer to a package in the module, even outside the module. Running the go run command outside the module or the workspace would result in an error because the go command wouldn’t know which modules to use. Next, we’ll add a local copy of the golang.org/x/example module to the workspace. We’ll then add a new function to the stringutil package that we can use instead of Reverse.</p>
+            <h1>Download and modify the golang.org/x/example module</h1>
+            <p>In this step, we’ll download a copy of the Git repo containing the golang.org/x/example module, add it to the workspace, and then add a new function to it that we will use from the hello program.</p>
+            <ol>
+              <li>Clone the repository
+                <p>From the workspace directory, run the git command to clone the repository:</p>
+                <code>$ git clone https://go.googlesource.com/example
+                  Cloning into 'example'...
+                  remote: Total 165 (delta 27), reused 165 (delta 27)
+                  Receiving objects: 100% (165/165), 434.18 KiB | 1022.00 KiB/s, done.
+                  Resolving deltas: 100% (27/27), done.</code>
+              </li>
+              <li>Add the module to the workspace
+                <code>$ go work use ./example</code>
+                <p>The go work use command adds a new module to the go.work file. It will now look like this:</p>
+                <code>go 1.18
+
+                  use (
+                      ./hello
+                      ./example
+                  )</code>
+                  <p>The module now includes both the example.com/hello module and the golang.org/x/example module.</p>
+                  <p>This will allow us to use the new code we will write in our copy of the stringutil module instead of the version of the module in the module cache that we downloaded with the go get command.</p>
+              </li>
+              <li>Add the new function.
+                <p>We’ll add a new function to uppercase a string to the golang.org/x/example/stringutil package.</p>
+                <p>Create a new file named toupper.go in the workspace/example/stringutil directory containing the following contents:</p>
+                <code>package stringutil
+
+                  import "unicode"
+                  
+                  // ToUpper uppercases all the runes in its argument string.
+                  func ToUpper(s string) string {
+                      r := []rune(s)
+                      for i := range r {
+                          r[i] = unicode.ToUpper(r[i])
+                      }
+                      return string(r)
+                  }</code>
+              </li>
+              <li>Modify the hello program to use the function.
+                <p>Modify the contents of workspace/hello/hello.go to contain the following contents:</p>
+                <code>package main
+
+                  import (
+                      "fmt"
+                  
+                      "golang.org/x/example/stringutil"
+                  )
+                  
+                  func main() {
+                      fmt.Println(stringutil.ToUpper("Hello"))
+                  }</code>
+              </li>
+            </ol>
+            <p><strong>Run the code in the workspace</strong></p>
+            <p>From the workspace directory, run</p>
+            <code>$ go run example.com/hello
+              HELLO</code>
+              <p>The Go command finds the example.com/hello module specified in the command line in the hello directory specified by the go.work file, and similarly resolves the golang.org/x/example import using the go.work file.</p>
+              <p>go.work can be used instead of adding replace directives to work across multiple modules.</p>
+              <p>Since the two modules are in the same workspace it’s easy to make a change in one module and use it in another.</p>
+              <p><strong>Future step</strong></p>
+              <p>Now, to properly release these modules we’d need to make a release of the golang.org/x/example module, for example at v0.1.0. This is usually done by tagging a commit on the module’s version control repository. See the module release workflow documentation for more details. Once the release is done, we can increase the requirement on the golang.org/x/example module in hello/go.mod:</p>
+              <code>cd hello
+                go get golang.org/x/example@v0.1.0</code>
+              <p>That way, the go command can properly resolve the modules outside the workspace.</p>
+              <h1>Learn more about workspaces</h1>
+              <p>The go command has a couple of subcommands for working with workspaces in addition to go work init which we saw earlier in the tutorial:</p>
+              <ul>
+                <li>go work use [-r] [dir] adds a use directive to the go.work file for dir, if it exists, and removes the use directory if the argument directory doesn’t exist. The -r flag examines subdirectories of dir recursively.</li>
+                <li>go work edit edits the go.work file similarly to go mod edit</li>
+                <li>go work sync syncs dependencies from the workspace’s build list into each of the workspace modules.</li>
+              </ul>
+              <p>See Workspaces in the Go Modules Reference for more detail on workspaces and go.work files.</p>
+        </article>
+      </section>
+      <section class="main-section" id="Tutorial:_Developing_a_RESTful_API_with_Go_and_Gin">
+        <header><a href="https://go.dev/doc/tutorial/web-service-gin" target="_blank">Tutorial: Developing a RESTful API with Go and Gin</a></header>
+        <article>
+            
+        </article>
+      </section>
+      <section class="main-section" id="Tutorial:_Getting_started_with_generics">
+        <header><a href="https://go.dev/doc/tutorial/generics.html" target="_blank">Tutorial: Getting started with generics</a></header>
+        <article>
+
+        </article>
+      </section>
+      <section class="main-section" id="Tutorial:_Getting_started_with_fuzzing">
+        <header><a href="https://go.dev/doc/tutorial/fuzz.html" target="_blank">Tutorial: Getting started with fuzzing</a></header>
+        <article>
+
+        </article>
+      </section>
+      <section class="main-section" id="Writing_Web_Applications">
+        <header><a href="https://go.dev/doc/articles/wiki/" target="_blank">Writing Web Applications</a></header>
+        <article>
+ 
+        </article>
+      </section>
+      <section class="main-section" id="How_to_write_Go_code">
+        <header><a href="https://go.dev/doc/code.html" target="_blank">How to write Go code</a></header>
+        <article>
+ 
+        </article>
+      </section>
+      <section class="main-section" id="A_Tour_of_Go">
+        <header><a href="https://go.dev/tour/" target="_blank">A Tour of Go</a></header>
+        <article>
+ 
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
